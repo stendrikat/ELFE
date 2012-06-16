@@ -102,7 +102,7 @@ public class ElfeDispatcher {
 		for (File dir : taskDirectories) {
 			String taskName = dir.getName();
 				
-			File logFile = new File(dir.getAbsolutePath() + File.separator + "logs"
+			File logFile = new File(dir.getAbsolutePath() 
 					+ File.separator + logFileName);
 			ArrayList<LogFileEntry> parsingResults = ElfeFileParser.parseLogFile(logFile);
 				

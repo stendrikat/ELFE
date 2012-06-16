@@ -37,7 +37,7 @@ public class ElfeFileParser {
 			
 			//TODO: Check if error handling routines do the correct thing for start/start and pause/close
 			
-			if (entry.getType() != EntryType.Close && entry.getType() != EntryType.Start && i > 0) {
+			if (entry.getType() != EntryType.Start && entry.getType() != EntryType.Close && i > 0) {
 				LogFileEntry nextEntry = allLogEntries.get(i + 1);
 				
 				if (nextEntry.getType() == EntryType.Start) {
@@ -58,10 +58,10 @@ public class ElfeFileParser {
 				}
 			}
 			
-			if (entry.getType() == EntryType.Start)
+			if (entry.getType() == EntryType.StartTask)
 			{
 				LogFileEntry nextEntry = allLogEntries.get(i + 1);
-				if (nextEntry.getType() == EntryType.Start) {
+				if (nextEntry.getType() == EntryType.StartTask) {
 					
 					//Try Error handling of two sequential start tags which may appear if emperior
 					//crashed during startup. Example:
@@ -73,10 +73,10 @@ public class ElfeFileParser {
 				}
 			}
 			
-			if (entry.getType() == EntryType.Close && i < allLogEntries.size() - 1)
+			if (entry.getType() == EntryType.CloseTask && i < allLogEntries.size() - 1)
 			{
 				LogFileEntry nextEntry = allLogEntries.get(i + 1);
-				if (nextEntry.getType() == EntryType.Close) {
+				if (nextEntry.getType() == EntryType.CloseTask) {
 					
 					//Try Error handling of two sequential close tags which may can appear because of
 					//uncertain circumustances. Possibly multiple clicks on the close button. Example:
@@ -91,7 +91,7 @@ public class ElfeFileParser {
 			if (entry.getType() == EntryType.Pause)
 			{
 				LogFileEntry nextEntry = allLogEntries.get(i + 1);
-				if (nextEntry.getType() == EntryType.Close) {
+				if (nextEntry.getType() == EntryType.CloseTask) {
 					
 					//Try error handling of emperior getting closed after a pause which leads
 					//to wrong analysis.
@@ -103,7 +103,7 @@ public class ElfeFileParser {
 					//should get transformed to:
 					//03.08.2011 16:15:07.142 [Close] Emperior
 					//03.08.2011 16:16:26.179 [Start] Emperior
-					LogFileEntry newEntry = new LogFileEntry(EntryType.Close, entry.getDate(),
+					LogFileEntry newEntry = new LogFileEntry(EntryType.CloseTask, entry.getDate(),
 							entry.getTime(), nextEntry.getValue()); 
 					allLogEntries.set(i, newEntry);
 					allLogEntries.remove(i + 1);
@@ -135,7 +135,7 @@ public class ElfeFileParser {
 		String [] lineParts = line.split(" ");
 		String datePart = lineParts[0];
 		String timeStamp = lineParts[1];
-		String type = lineParts[2];
+		String type = lineParts[5];
 		String value = "";
 		for (int i = 3; i < lineParts.length; i++) {
 			value += lineParts[i];	

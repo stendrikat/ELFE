@@ -25,8 +25,8 @@ public class Elfe {
 
 			//TODO: Parsing and evaluating of command line values currently not implemented
 			//TODO: Use Default Values here during debugging
-			debugSourceDirectory="D:\\AuswertungTest";
-			debugTargetDirectory="D:\\AuswertungTest";
+			debugSourceDirectory="D:\\logfiles";
+			debugTargetDirectory="D:\\auswertungen";
 			debugTaskClasses= new String []{ "v1", "v2" };
 			debugTaskDirectories="Task";
 			debugLogFileName = "experiment.log";

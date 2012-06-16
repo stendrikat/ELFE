@@ -64,10 +64,10 @@ public class LogFileTaskAnalyser {
 		for (LogFileEntry entry : logData) {
 			switch (entry.getType())
 			{
-				case Start:
+				case StartTask:
 					startList.add(entry);
 					break;
-				case Close:
+				case CloseTask:
 					closeList.add(entry);
 					break;
 				case Pause:
